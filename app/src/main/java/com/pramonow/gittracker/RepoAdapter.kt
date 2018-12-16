@@ -5,28 +5,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.pramonow.gittracker.model.RepoModel
 import java.util.ArrayList
 
 class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
 
+    var repoList:MutableList<RepoModel> = ArrayList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RepoVH {
 
-        //val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.adapter_person, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.adapter_repo, viewGroup, false)
 
-        val view = View(null)
         return RepoVH(view)
     }
 
-    override fun onBindViewHolder(sampleVH: RepoVH, i: Int) {
+    override fun onBindViewHolder(repoVH: RepoVH, i: Int) {
+        repoVH.setData(repoList.get(i))
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return repoList.size
     }
 
 
-    inner class RepoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RepoVH : RecyclerView.ViewHolder {
+
+        lateinit var repoName:TextView
+
+        constructor(itemView: View) : super(itemView){
+            repoName = itemView.findViewById(R.id.repo_name)
+        }
+
+        fun setData(repoModel: RepoModel)
+        {
+            repoName.setText(repoModel.name)
+        }
 
     }
 }
