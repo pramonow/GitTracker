@@ -1,10 +1,11 @@
-package com.pramonow.gittracker
+package com.pramonow.gittracker.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.pramonow.gittracker.R
 import com.pramonow.gittracker.model.RepoModel
 import java.util.ArrayList
 

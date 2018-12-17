@@ -1,10 +1,12 @@
-package com.pramonow.gittracker
+package com.pramonow.gittracker.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import com.pramonow.gittracker.R
+import com.pramonow.gittracker.adapter.RepoAdapter
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.network.NetworkBuilder
 import retrofit2.Call
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         var repoAdapter = RepoAdapter()
         repoRecyclerView.adapter = repoAdapter
 
-        val call = NetworkBuilder.service.getRepoList("pramonow")
+        val call = NetworkBuilder.service.getRepoList("pramonow",10,1)
 
         call.enqueue(object : Callback<List<RepoModel>> {
             override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {

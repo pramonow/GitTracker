@@ -3,7 +3,7 @@ package com.pramonow.gittracker.model
 import com.google.gson.annotations.SerializedName
 import java.sql.Time
 
-data class RepoModel(
+data class RepoDetail(
 
     @SerializedName("id")
     var id:Long = 0,
@@ -18,10 +18,10 @@ data class RepoModel(
     var webUrl:String = "",
 
     @SerializedName("created_time")
-    var createdTime:Time,
+    var createdTime: Time,
 
     @SerializedName("updated_at")
-    var updatedTime:Time,
+    var updatedTime: Time,
 
     @SerializedName("license")
     var license: License
