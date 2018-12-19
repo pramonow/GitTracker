@@ -30,6 +30,9 @@ class InputUserPresenter:InputUserContract.Presenter{
                 if(response.code() == 200) {
                     var result = response.body()
                     Log.d("baniman", "success " + result)
+
+                    if (result != null)
+                        activity.navigateToUserActivity(result)
                 }
                 else
                 {

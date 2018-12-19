@@ -2,9 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:padding="12dp">
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
     android:id="@+id/repo_name"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/repo_description"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/last_update"/>
 
 </LinearLayout>

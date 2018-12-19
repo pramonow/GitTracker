@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="12dp">
+
+    <ImageView android:layout_width="150dp"
+               android:layout_height="150dp"
+               android:id="@+id/avatar_image"
+    />
+    
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/name_text"
+              android:text="Pramono Winata"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/username_text"
+              android:text="pramonow"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+              app:layout_constraintTop_toBottomOf="@id/name_text"
+    />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/repos_count"
+              app:layout_constraintTop_toBottomOf="@id/avatar_image"
+              android:layout_marginTop="12dp"
+              android:text="Number public repos: 12"
+    />
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_button"
+            app:layout_constraintTop_toBottomOf="@id/repos_count"
+            android:layout_marginTop="12dp"
+            android:text="show all"
+    />
+
+</android.support.constraint.ConstraintLayout>
