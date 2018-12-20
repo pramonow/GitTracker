@@ -6,9 +6,10 @@ interface RepoListContract {
 
     interface Activity{
        fun showRepoList(repoList:List<RepoModel>)
+       fun setLoading(boolean: Boolean)
     }
 
     interface Presenter{
-        fun getRepoList()
+        fun getRepoList(username:String, limit:Int, page:Int)
     }
 }

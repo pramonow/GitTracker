@@ -18,10 +18,10 @@ data class RepoModel(
     var webUrl:String = "",
 
     @SerializedName("created_time")
-    var createdTime:Time,
+    var createdTime:String,
 
     @SerializedName("updated_at")
-    var updatedTime:Time,
+    var updatedTime:String,
 
     @SerializedName("license")
     var license: License

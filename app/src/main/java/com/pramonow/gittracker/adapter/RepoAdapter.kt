@@ -16,7 +16,6 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RepoVH {
 
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.adapter_repo, viewGroup, false)
-
         return RepoVH(view)
     }
 
@@ -28,10 +27,15 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
         return repoList.size
     }
 
+    fun addRepoList(repoList:List<RepoModel>)
+    {
+        this.repoList.addAll(repoList)
+        notifyDataSetChanged()
+    }
 
     inner class RepoVH : RecyclerView.ViewHolder {
 
-        lateinit var repoName:TextView
+        var repoName:TextView
 
         constructor(itemView: View) : super(itemView){
             repoName = itemView.findViewById(R.id.repo_name)
