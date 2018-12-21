@@ -29,21 +29,20 @@ class InputUserPresenter:InputUserContract.Presenter{
 
                 if(response.code() == 200) {
                     var result = response.body()
-                    Log.d("baniman", "success " + result)
 
                     if (result != null)
                         activity.navigateToUserActivity(result)
                 }
                 else
                 {
-                    Log.d("baniman", "not 200 " + response)
+                    activity.showToast("No user found")
                 }
 
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
                 activity.showLoading(false)
-                Log.d("baniman", "fail " + t.message)
+                activity.showToast("Network Error")
             }
         })
 

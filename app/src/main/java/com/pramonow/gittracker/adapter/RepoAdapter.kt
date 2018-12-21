@@ -36,14 +36,20 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
     inner class RepoVH : RecyclerView.ViewHolder {
 
         var repoName:TextView
+        var repoDesc: TextView
+        var repoLastUpdated:TextView
 
         constructor(itemView: View) : super(itemView){
             repoName = itemView.findViewById(R.id.repo_name)
+            repoDesc = itemView.findViewById(R.id.repo_description)
+            repoLastUpdated = itemView.findViewById(R.id.last_update)
         }
 
         fun setData(repoModel: RepoModel)
         {
             repoName.setText(repoModel.name)
+            repoDesc.setText(repoModel.description)
+            repoLastUpdated.setText(repoModel.updatedTime)
         }
 
     }

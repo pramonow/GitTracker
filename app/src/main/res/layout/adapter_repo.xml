@@ -7,14 +7,20 @@
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-    android:id="@+id/repo_name"/>
+              android:id="@+id/repo_name"
+              android:text="Repo name here"
+    />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/repo_description"/>
+              android:id="@+id/repo_description"
+              android:text="Description here"
+    />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/last_update"/>
+              android:id="@+id/last_update"
+              android:text="Last updated time"
+    />
 
 </LinearLayout>

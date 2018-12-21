@@ -12,6 +12,7 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.adapter.RepoAdapter
 import com.pramonow.gittracker.contract.RepoListContract
 import com.pramonow.gittracker.model.RepoModel
+import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.RepoListPresenter
 
 class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListContract.Activity {
@@ -23,12 +24,15 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
     lateinit var repoAdapter: RepoAdapter
     var isLoadingData = false
     var page = 1
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repo_list)
 
         repoRecyclerView = findViewById(R.id.endless_repo_list)
+        user = intent.extras.getParcelable<User>("user")
+
 
         repoAdapter = RepoAdapter()
         repoRecyclerView.recyclerView.adapter = repoAdapter
@@ -37,13 +41,14 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
         repoRecyclerView.setEndlessScrollCallback(this)
         repoRecyclerView.setLoadBeforeBottom(true)
 
-        repoListPresenter.getRepoList("pramonow",10, page)
+        repoListPresenter.getRepoList(user.userName,10, page)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun loadMore() {
 
         repoRecyclerView.blockLoading()
-        repoListPresenter.getRepoList("pramonow",10, page)
+        repoListPresenter.getRepoList(user.name,10, page)
         Log.d("baniman", "load")
 
     }

@@ -13,6 +13,9 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.InputUserPresenter
+import android.R.menu
+import android.view.Menu
+
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
@@ -49,6 +52,7 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         confirmButton = findViewById(R.id.confirm_button)
         loadingLayout = findViewById(R.id.loading_layout)
 
-        confirmButton.setOnClickListener { v ->  inputUserPresenter.fetchUser(inputText.text.toString())}
+        confirmButton.setOnClickListener { v -> inputUserPresenter.fetchUser(inputText.text.toString()) }
+
     }
 }

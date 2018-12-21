@@ -34,11 +34,12 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         repoCountTextView = findViewById(R.id.repos_count)
         showRepoButton = findViewById(R.id.show_button)
 
-        Picasso.get().load(user.avatarUrl).into(avatarImage)
+        Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
         nameText.setText(user.name)
         userNameText.setText(user.userName)
         repoCountTextView.setText("Public repos: " + user.publicRepoCount)
-        showRepoButton.setOnClickListener { v -> startActivity(Intent(this,RepoListActivity::class.java)) }
+        showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -46,7 +47,9 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun navigateToRepositoryScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun navigateToRepositoryScreen(user:User) {
+        var intent = Intent(this,RepoListActivity::class.java)
+        intent.putExtra("user",user)
+        startActivity(intent)
     }
 }
