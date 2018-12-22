@@ -5,16 +5,18 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.Toast
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.InputUserPresenter
 import android.R.menu
 import android.view.Menu
+import android.view.MenuItem
+import android.support.v4.view.MenuItemCompat
+import android.widget.*
+import android.widget.Spinner
+
+
 
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
@@ -53,6 +55,30 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         loadingLayout = findViewById(R.id.loading_layout)
 
         confirmButton.setOnClickListener { v -> inputUserPresenter.fetchUser(inputText.text.toString()) }
+
+    }
+
+    // create an action bar button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        var menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // handle button activities
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.terms -> {
+                showToast("terms")
+                return true
+            }
+            R.id.about -> {
+                showToast("about")
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
 
     }
 }

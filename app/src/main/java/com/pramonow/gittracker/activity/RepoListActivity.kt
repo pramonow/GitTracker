@@ -43,6 +43,8 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
 
         repoListPresenter.getRepoList(user.userName,10, page)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
     override fun loadMore() {

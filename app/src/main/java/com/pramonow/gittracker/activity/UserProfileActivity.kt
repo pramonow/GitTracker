@@ -3,6 +3,7 @@ package com.pramonow.gittracker.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -48,8 +49,21 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
     }
 
     override fun navigateToRepositoryScreen(user:User) {
-        var intent = Intent(this,RepoListActivity::class.java)
+        var intent = Intent(this,RepoDetailActivity::class.java)
         intent.putExtra("user",user)
         startActivity(intent)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }
