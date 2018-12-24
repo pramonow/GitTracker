@@ -9,29 +9,78 @@
                android:layout_height="150dp"
                android:id="@+id/avatar_image"
     />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/name"
+    android:text="Name"
+    android:textStyle="bold"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"/>
     
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/name_text"
-              android:text="Pramono Winata"
+              android:text="no name set"
               android:layout_marginLeft="12dp"
               app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+              app:layout_constraintTop_toBottomOf="@id/name"
     />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/username"
+              android:text="Username"
+              android:textStyle="bold"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+              app:layout_constraintTop_toBottomOf="@id/name_text"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/username_text"
-              android:text="pramonow"
               android:layout_marginLeft="12dp"
               app:layout_constraintLeft_toRightOf="@+id/avatar_image"
-              app:layout_constraintTop_toBottomOf="@id/name_text"
+              app:layout_constraintTop_toBottomOf="@id/username"
+    />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/location"
+              android:text="Location"
+              android:textStyle="bold"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+              app:layout_constraintTop_toBottomOf="@id/username_text"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/location_text"
+              android:layout_marginLeft="12dp"
+              app:layout_constraintLeft_toRightOf="@+id/avatar_image"
+              app:layout_constraintTop_toBottomOf="@id/location"
+              android:text="no location set yet"
+    />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:text="Biography"
+              android:id="@+id/biography_text"
+      app:layout_constraintTop_toBottomOf="@id/avatar_image"
+      android:layout_marginTop="12dp"/>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/bio_text"
+              app:layout_constraintTop_toBottomOf="@id/biography_text"
+              android:layout_marginTop="12dp"
+              android:text="No biography yet..."
+              android:background="@color/colorVeryLightGray"
+              android:padding="8dp"
     />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/repos_count"
-              app:layout_constraintTop_toBottomOf="@id/avatar_image"
-              android:layout_marginTop="12dp"
+              app:layout_constraintTop_toBottomOf="@id/bio_text"
+              android:layout_marginTop="18dp"
               android:text="Number public repos: 12"
     />
 
@@ -40,7 +89,7 @@
             android:id="@+id/show_button"
             app:layout_constraintTop_toBottomOf="@id/repos_count"
             android:layout_marginTop="12dp"
-            android:text="show all"
+            android:text="show repos"
     />
 
 </android.support.constraint.ConstraintLayout>

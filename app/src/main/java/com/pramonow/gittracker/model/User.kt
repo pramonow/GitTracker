@@ -10,17 +10,21 @@ data class User(
     @SerializedName("login")
     var userName:String = "",
     @SerializedName("name")
-    var name:String = "",
+    var name:String? = "",
     @SerializedName("id")
     var id:Long = 0,
     @SerializedName("avatar_url")
-    var avatarUrl:String = "",
+    var avatarUrl:String? = "",
     @SerializedName("public_repos")
     var publicRepoCount:Int = 0,
     @SerializedName("created_at")
-    var createdTime:String = "",
+    var createdTime:String? = "",
     @SerializedName("updated_at")
-    var updatedTime:String = ""
+    var updatedTime:String? = "",
+    @SerializedName("bio")
+    var biography:String? = "",
+    @SerializedName("location")
+    var location:String? = ""
     )
     :Parcelable {
     constructor(parcel: Parcel) : this(
@@ -29,6 +33,8 @@ data class User(
         parcel.readLong(),
         parcel.readString(),
         parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString()
     )
@@ -41,6 +47,8 @@ data class User(
         parcel.writeInt(publicRepoCount)
         parcel.writeString(createdTime)
         parcel.writeString(updatedTime)
+        parcel.writeString(biography)
+        parcel.writeString(location)
     }
 
     override fun describeContents()= 0

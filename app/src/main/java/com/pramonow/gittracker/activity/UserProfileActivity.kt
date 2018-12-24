@@ -23,6 +23,9 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
     lateinit var nameText:TextView
     lateinit var userNameText:TextView
     lateinit var repoCountTextView: TextView
+    lateinit var locationTextView:TextView
+    lateinit var biographyTextView: TextView
+
     lateinit var showRepoButton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,8 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         userNameText = findViewById(R.id.username_text)
         repoCountTextView = findViewById(R.id.repos_count)
         showRepoButton = findViewById(R.id.show_button)
+        locationTextView = findViewById(R.id.location_text)
+        biographyTextView = findViewById(R.id.bio_text)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         initializeUserProfile(user)
@@ -73,6 +78,11 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         repoCountTextView.setText("Public repos: " + user.publicRepoCount)
         showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
         setTitle(user.userName + "'s profile")
+
+        if(!user.biography.isNullOrEmpty())
+            biographyTextView.setText(user.biography)
+        if(!user.location.isNullOrEmpty())
+            locationTextView.setText(user.location)
     }
 
 

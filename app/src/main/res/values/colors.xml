@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#403e3e</color>
     <color name="colorGrayLoading">#91484848</color>
     <color name="colorLightGray">#cccccc</color>
+    <color name="colorVeryLightGray">#eaeaea</color>
     <color name="colorAccent">#D81B60</color>
 </resources>
