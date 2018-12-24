@@ -7,6 +7,7 @@ interface InputUserContract {
     interface Activity{
         fun showLoading(show:Boolean)
         fun showToast(message:String)
+        fun showToast(message:Int)
         fun navigateToUserActivity(user:User)
     }
 

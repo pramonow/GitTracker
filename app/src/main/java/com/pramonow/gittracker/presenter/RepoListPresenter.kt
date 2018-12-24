@@ -1,6 +1,8 @@
 package com.pramonow.gittracker.presenter
 
+import android.content.res.Resources
 import android.util.Log
+import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.RepoListContract
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.network.NetworkBuilder
@@ -16,15 +18,17 @@ class RepoListPresenter:RepoListContract.Presenter{
         this.activity = activity
     }
 
+    /*
+        API calling block
+     */
     override fun getRepoList(username: String, limit: Int, page: Int) {
         val call = NetworkBuilder.service.getRepoList(username,limit,page)
 
         call.enqueue(object : Callback<List<RepoModel>> {
             override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {
-                //Success
 
+                Log.d("baniman","load repo " + response )
                 var result = response.body()
-                Log.d("baniman", "res " + response.body())
 
                 if (result != null) {
                     activity.showRepoList(result)
@@ -32,8 +36,8 @@ class RepoListPresenter:RepoListContract.Presenter{
             }
 
             override fun onFailure(call: Call<List<RepoModel>>, t: Throwable) {
-                //Fail
-                Log.d("baniman", "fail " + t.message)
+                activity.showToast(R.string.network_error)
+                activity.setLoading(false)
             }
         })
     }

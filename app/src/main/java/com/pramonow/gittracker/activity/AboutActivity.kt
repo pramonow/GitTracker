@@ -7,25 +7,27 @@ import com.pramonow.gittracker.R
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-
+import com.pramonow.gittracker.util.REPO_URL_HREF
 
 
 class AboutActivity: AppCompatActivity(){
 
     lateinit var urlText:TextView
+    val actionBarTitle = "About"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_about)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setTitle("About")
 
+        setTitle(actionBarTitle)
 
+        //Set Clickable link block
         urlText = findViewById(R.id.project_link)
         urlText.isClickable = true
         urlText.movementMethod = LinkMovementMethod.getInstance()
-        val text = "<a href='https://github.com/pramonow/GitTracker'> pramonow/GitTracker </a>"
+        val text = REPO_URL_HREF
         urlText.text = Html.fromHtml(text)
 
     }

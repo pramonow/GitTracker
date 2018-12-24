@@ -5,8 +5,10 @@ import com.pramonow.gittracker.model.RepoModel
 interface RepoListContract {
 
     interface Activity{
-       fun showRepoList(repoList:List<RepoModel>)
-       fun setLoading(boolean: Boolean)
+        fun showRepoList(repoList:List<RepoModel>)
+        fun setLoading(boolean: Boolean)
+        fun showToast(message:String)
+        fun showToast(message:Int)
     }
 
     interface Presenter{

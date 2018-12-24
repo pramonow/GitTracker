@@ -4,11 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.pramonow.endlessrecyclerview.EndlessRecyclerView
 import com.pramonow.endlessrecyclerview.EndlessScrollCallback
 import com.pramonow.gittracker.R
@@ -18,66 +17,41 @@ import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.RepoListPresenter
 import com.pramonow.gittracker.util.AdapterOnClick
+import com.pramonow.gittracker.util.REPO_NAME_INTENT
+import com.pramonow.gittracker.util.URL_INTENT
+import com.pramonow.gittracker.util.USER_INTENT
 
 class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListContract.Activity, AdapterOnClick {
-
-    override fun onClick(url: String, repoName:String) {
-        var intent = Intent(this,RepoDetailActivity::class.java)
-        intent.putExtra("url",url)
-        intent.putExtra("reponame", repoName)
-        startActivity(intent)
-    }
 
     val repoListPresenter = RepoListPresenter(this)
 
     lateinit var repoRecyclerView: EndlessRecyclerView
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var repoAdapter: RepoAdapter
-    var isLoadingData = false
-    var page = 1
     lateinit var user: User
+
+    var isLoadingData = false
+    var defaultLimitPage = 10
+    var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repo_list)
 
-        repoRecyclerView = findViewById(R.id.endless_repo_list)
-        user = intent.extras.getParcelable<User>("user")
-
+        user = intent.extras.getParcelable<User>(USER_INTENT)
 
         repoAdapter = RepoAdapter(this)
+
+        //Setting endless recycler view block
+        repoRecyclerView = findViewById(R.id.endless_repo_list)
+        repoRecyclerView.loadOffset = 3
+        repoRecyclerView.setLoadBeforeBottom(true)
+        repoRecyclerView.setEndlessScrollCallback(this)
         repoRecyclerView.recyclerView.adapter = repoAdapter
 
-        //Set callback for loading more
-        repoRecyclerView.setEndlessScrollCallback(this)
-        repoRecyclerView.setLoadBeforeBottom(true)
-
-        repoListPresenter.getRepoList(user.userName,10, page)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setTitle(user.userName + " repository")
+        setTitle(user.userName + "'s repository")
 
-    }
-
-    override fun loadMore() {
-
-        repoRecyclerView.blockLoading()
-        repoListPresenter.getRepoList(user.name,10, page)
-        Log.d("baniman", "load")
-
-    }
-
-    override fun showRepoList(repoList: List<RepoModel>) {
-
-        if(repoList.size < 10)
-            repoRecyclerView.setLastPage()
-
-        repoAdapter.addRepoList(repoList)
-        repoRecyclerView.releaseBlock()
-        page++
-    }
-
-    override fun setLoading(boolean: Boolean) {
-        isLoadingData = boolean
+        repoListPresenter.getRepoList(user.userName,defaultLimitPage, page)
     }
 
     // create an action bar button
@@ -101,6 +75,56 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    //Function to be implemented for adapter click interface
+    override fun onClick(url: String, repoName:String) {
+        var intent = Intent(this,RepoDetailActivity::class.java)
+        intent.putExtra(URL_INTENT,url)
+        intent.putExtra(REPO_NAME_INTENT, repoName)
+        startActivity(intent)
+    }
+
+    //Function to be implemented for endless scroll view callback
+    override fun loadMore() {
+        //block new data from loading until the new data finish being fetched
+        repoRecyclerView.blockLoading()
+        repoListPresenter.getRepoList(user.userName,defaultLimitPage, page)
+    }
+
+    /*
+        Contract functions Implementation block
+     */
+
+    override fun showRepoList(repoList: List<RepoModel>) {
+
+        //If repos obtained from web is less than 10 means it is the last page
+        //Setting last page will make endless view from loading new data
+        if(repoList.size < defaultLimitPage)
+            repoRecyclerView.setLastPage()
+
+        repoAdapter.addRepoList(repoList)
+
+        //enable loading again
+        repoRecyclerView.releaseBlock()
+        page++
+    }
+
+    override fun setLoading(boolean: Boolean) {
+        isLoadingData = boolean
+
+        if(boolean == true)
+            repoRecyclerView.blockLoading()
+        else
+            repoRecyclerView.releaseBlock()
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showToast(message: Int) {
+        Toast.makeText(this,getString(message),Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -1,22 +1,19 @@
 package com.pramonow.gittracker.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebView
 import com.pramonow.gittracker.R
 import android.webkit.WebViewClient
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.view.KeyEvent.KEYCODE_BACK
-
-
+import com.pramonow.gittracker.util.REPO_NAME_INTENT
+import com.pramonow.gittracker.util.URL_INTENT
 
 
 class RepoDetailActivity:AppCompatActivity(){
@@ -27,14 +24,15 @@ class RepoDetailActivity:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val url = intent.getStringExtra("url")
-        val repoName = intent.getStringExtra("reponame")
+        val url = intent.getStringExtra(URL_INTENT)
+        val repoName = intent.getStringExtra(REPO_NAME_INTENT)
 
         setContentView(R.layout.activity_repo_detail)
         detailView = findViewById(R.id.web_view)
         loadingLayout = findViewById(R.id.loading_layout)
         detailView.settings.javaScriptEnabled = true
 
+        //Creating web view client for web view activities
         detailView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
 
@@ -60,7 +58,6 @@ class RepoDetailActivity:AppCompatActivity(){
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setTitle(repoName)
-
     }
 
     // create an action bar button
@@ -86,6 +83,7 @@ class RepoDetailActivity:AppCompatActivity(){
         }
     }
 
+    //Function overridden in order to enable back inside web view
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.getAction() === KeyEvent.ACTION_DOWN) {
             when (keyCode) {

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitTracker</string>
+    <string name="not_found_message">User Not Found</string>
+    <string name="network_error">Network Error</string>
 </resources>

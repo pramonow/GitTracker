@@ -44,12 +44,10 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH> {
 
         var repoName:TextView
         var repoDesc: TextView
-        //var repoLastUpdated:TextView
 
         constructor(itemView: View) : super(itemView){
             repoName = itemView.findViewById(R.id.repo_name)
             repoDesc = itemView.findViewById(R.id.repo_description)
-            //repoLastUpdated = itemView.findViewById(R.id.last_update)
         }
 
         fun setData(repoModel: RepoModel)
@@ -57,7 +55,6 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH> {
             repoName.setText(repoModel.name)
             repoDesc.setText(repoModel.description)
             itemView.setOnClickListener { v -> adapterOnClick.onClick(repoModel.webUrl, repoModel.fullName) }
-            //repoLastUpdated.setText(repoModel.updatedTime)
         }
 
     }

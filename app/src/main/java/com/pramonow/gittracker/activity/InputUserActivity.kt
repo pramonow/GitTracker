@@ -1,7 +1,6 @@
 package com.pramonow.gittracker.activity
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -12,6 +11,7 @@ import com.pramonow.gittracker.presenter.InputUserPresenter
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import com.pramonow.gittracker.util.USER_INTENT
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
@@ -20,14 +20,6 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
     lateinit var inputText:EditText
     lateinit var confirmButton: Button
     lateinit var loadingLayout: FrameLayout
-
-
-    override fun showLoading(show: Boolean) {
-        if(show)
-            loadingLayout.visibility = View.VISIBLE
-        else
-            loadingLayout.visibility = View.INVISIBLE
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,15 +52,30 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         }
     }
 
+    /*
+        Contract Functions block
+     */
+
+    override fun showLoading(show: Boolean) {
+        if(show)
+            loadingLayout.visibility = View.VISIBLE
+        else
+            loadingLayout.visibility = View.INVISIBLE
+    }
+
     override fun navigateToUserActivity(user: User) {
 
         var intent = Intent(this,UserProfileActivity::class.java)
-        intent.putExtra("user",user)
+        intent.putExtra(USER_INTENT,user)
         startActivity(intent)
     }
 
     override fun showToast(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showToast(message: Int) {
+        Toast.makeText(this,getString(message),Toast.LENGTH_SHORT).show()
     }
 
 

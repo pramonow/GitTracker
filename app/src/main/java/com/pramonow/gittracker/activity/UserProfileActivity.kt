@@ -12,6 +12,7 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.UserProfileContract
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.UserProfilePresenter
+import com.pramonow.gittracker.util.USER_INTENT
 import com.squareup.picasso.Picasso
 
 class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
@@ -28,7 +29,7 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        var user = intent.extras.getParcelable<User>("user")
+        var user = intent.extras.getParcelable<User>(USER_INTENT)
 
         avatarImage = findViewById(R.id.avatar_image)
         nameText = findViewById(R.id.name_text)
@@ -36,24 +37,9 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         repoCountTextView = findViewById(R.id.repos_count)
         showRepoButton = findViewById(R.id.show_button)
 
-        Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
-        nameText.setText(user.name)
-        userNameText.setText(user.userName)
-        repoCountTextView.setText("Public repos: " + user.publicRepoCount)
-        showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setTitle(user.userName + " profile")
+        initializeUserProfile(user)
 
-    }
-
-    override fun showLoading(show: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun navigateToRepositoryScreen(user:User) {
-        var intent = Intent(this,RepoListActivity::class.java)
-        intent.putExtra("user",user)
-        startActivity(intent)
     }
 
     // create an action bar button
@@ -77,6 +63,31 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initializeUserProfile(user:User)
+    {
+        Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
+        nameText.setText(user.name)
+        userNameText.setText(user.userName)
+        repoCountTextView.setText("Public repos: " + user.publicRepoCount)
+        showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
+        setTitle(user.userName + "'s profile")
+    }
+
+
+    /*
+        Contract functions Implementation
+     */
+
+    override fun showLoading(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun navigateToRepositoryScreen(user:User) {
+        var intent = Intent(this,RepoListActivity::class.java)
+        intent.putExtra(USER_INTENT,user)
+        startActivity(intent)
     }
 
 
