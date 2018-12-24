@@ -8,9 +8,6 @@
 
         <menu>
             <item
-                    android:id="@+id/terms"
-                    android:title="License" />
-            <item
                     android:id="@+id/about"
                     android:title="About" />
         </menu>

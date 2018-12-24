@@ -91,10 +91,6 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.terms -> {
-                startActivity(Intent(this,LicenseActivity::class.java))
-                return true
-            }
             R.id.about -> {
                 startActivity(Intent(this,AboutActivity::class.java))
                 return true

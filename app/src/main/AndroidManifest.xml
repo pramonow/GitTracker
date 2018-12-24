@@ -28,7 +28,6 @@
 
         <activity android:name=".activity.RepoDetailActivity"></activity>
         <activity android:name=".activity.AboutActivity"></activity>
-        <activity android:name=".activity.LicenseActivity"></activity>
     </application>
 
 </manifest>

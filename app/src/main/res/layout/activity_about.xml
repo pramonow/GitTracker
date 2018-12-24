@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:orientation="vertical">
+
+        <ImageView android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:src="@drawable/github_mark"
+                   android:layout_gravity="center"
+                   android:layout_marginBottom="12dp"
+        />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="18dp"
+                  android:textStyle="bold"
+                  android:text="This application is created with REST V3 API provided by Github"
+        />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="18dp"
+                  android:text="This application is public open source project in git, feel free to look and fork the project. Everyone is very welocmed to do that.
+Issues and PR will be very appreciated also. Link into project will be provided below."
+        />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textAlignment="center"
+                  android:padding="18dp"
+                  android:id="@+id/project_link"
+        />
+
+
+    </LinearLayout>
+
+</ScrollView>

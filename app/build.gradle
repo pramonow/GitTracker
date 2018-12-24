@@ -8,11 +8,15 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.pramonow.gittracker"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField "String", "BASE_URL", "\"http://api.github.com\""
+
     }
     buildTypes {
         release {
@@ -39,5 +43,8 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.pramonow:android-endlessrecyclerview:-SNAPSHOT'
+
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
 
 }
