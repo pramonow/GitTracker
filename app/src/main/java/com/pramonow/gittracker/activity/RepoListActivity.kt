@@ -1,11 +1,14 @@
 package com.pramonow.gittracker.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.pramonow.endlessrecyclerview.EndlessRecyclerView
 import com.pramonow.endlessrecyclerview.EndlessScrollCallback
 import com.pramonow.gittracker.R
@@ -14,8 +17,16 @@ import com.pramonow.gittracker.contract.RepoListContract
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.RepoListPresenter
+import com.pramonow.gittracker.util.AdapterOnClick
 
-class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListContract.Activity {
+class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListContract.Activity, AdapterOnClick {
+
+    override fun onClick(url: String, repoName:String) {
+        var intent = Intent(this,RepoDetailActivity::class.java)
+        intent.putExtra("url",url)
+        intent.putExtra("reponame", repoName)
+        startActivity(intent)
+    }
 
     val repoListPresenter = RepoListPresenter(this)
 
@@ -34,7 +45,7 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
         user = intent.extras.getParcelable<User>("user")
 
 
-        repoAdapter = RepoAdapter()
+        repoAdapter = RepoAdapter(this)
         repoRecyclerView.recyclerView.adapter = repoAdapter
 
         //Set callback for loading more
@@ -43,7 +54,7 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
 
         repoListPresenter.getRepoList(user.userName,10, page)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
+        setTitle(user.userName + " repository")
 
     }
 
@@ -67,6 +78,33 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
 
     override fun setLoading(boolean: Boolean) {
         isLoadingData = boolean
+    }
+
+    // create an action bar button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // handle button activities
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.terms -> {
+                startActivity(Intent(this,LicenseActivity::class.java))
+                return true
+            }
+            R.id.about -> {
+                startActivity(Intent(this,AboutActivity::class.java))
+                return true
+            }
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
 }

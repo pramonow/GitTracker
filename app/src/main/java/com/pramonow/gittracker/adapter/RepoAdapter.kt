@@ -7,11 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.model.RepoModel
+import com.pramonow.gittracker.util.AdapterOnClick
 import java.util.ArrayList
 
-class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
+class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH> {
 
     var repoList:MutableList<RepoModel> = ArrayList()
+    var adapterOnClick:AdapterOnClick
+
+    constructor(adapterOnClick: AdapterOnClick)
+    {
+        this.adapterOnClick = adapterOnClick
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RepoVH {
 
@@ -37,19 +44,20 @@ class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoVH>() {
 
         var repoName:TextView
         var repoDesc: TextView
-        var repoLastUpdated:TextView
+        //var repoLastUpdated:TextView
 
         constructor(itemView: View) : super(itemView){
             repoName = itemView.findViewById(R.id.repo_name)
             repoDesc = itemView.findViewById(R.id.repo_description)
-            repoLastUpdated = itemView.findViewById(R.id.last_update)
+            //repoLastUpdated = itemView.findViewById(R.id.last_update)
         }
 
         fun setData(repoModel: RepoModel)
         {
             repoName.setText(repoModel.name)
             repoDesc.setText(repoModel.description)
-            repoLastUpdated.setText(repoModel.updatedTime)
+            itemView.setOnClickListener { v -> adapterOnClick.onClick(repoModel.webUrl, repoModel.fullName) }
+            //repoLastUpdated.setText(repoModel.updatedTime)
         }
 
     }

@@ -9,28 +9,11 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.presenter.InputUserPresenter
-import android.R.menu
 import android.view.Menu
 import android.view.MenuItem
-import android.support.v4.view.MenuItemCompat
 import android.widget.*
-import android.widget.Spinner
-
-
-
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
-
-    override fun navigateToUserActivity(user: User) {
-
-        var intent = Intent(this,UserProfileActivity::class.java)
-        intent.putExtra("user",user)
-        startActivity(intent)
-    }
-
-    override fun showToast(message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
-    }
 
     val inputUserPresenter:InputUserContract.Presenter = InputUserPresenter(this)
 
@@ -60,7 +43,7 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        var menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)
+        val menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -70,15 +53,28 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
         when (item.itemId) {
             R.id.terms -> {
-                showToast("terms")
+                startActivity(Intent(this,LicenseActivity::class.java))
                 return true
             }
             R.id.about -> {
-                showToast("about")
+                startActivity(Intent(this,AboutActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
-
     }
+
+    override fun navigateToUserActivity(user: User) {
+
+        var intent = Intent(this,UserProfileActivity::class.java)
+        intent.putExtra("user",user)
+        startActivity(intent)
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+    }
+
+
+
 }

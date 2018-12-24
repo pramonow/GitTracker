@@ -11,6 +11,9 @@ data class RepoModel(
     @SerializedName("name")
     var name:String = "",
 
+    @SerializedName("full_name")
+    var fullName:String = "",
+
     @SerializedName("description")
     var description:String,
 

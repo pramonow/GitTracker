@@ -3,6 +3,7 @@ package com.pramonow.gittracker.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
@@ -41,6 +42,7 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         repoCountTextView.setText("Public repos: " + user.publicRepoCount)
         showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        setTitle(user.userName + " profile")
 
     }
 
@@ -49,20 +51,36 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
     }
 
     override fun navigateToRepositoryScreen(user:User) {
-        var intent = Intent(this,RepoDetailActivity::class.java)
+        var intent = Intent(this,RepoListActivity::class.java)
         intent.putExtra("user",user)
         startActivity(intent)
     }
 
+    // create an action bar button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // handle button activities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+
+        when (item.itemId) {
+            R.id.terms -> {
+                startActivity(Intent(this,LicenseActivity::class.java))
+                return true
+            }
+            R.id.about -> {
+                startActivity(Intent(this,AboutActivity::class.java))
+                return true
+            }
             android.R.id.home -> {
                 onBackPressed()
                 return true
             }
+            else -> return super.onOptionsItemSelected(item)
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
 

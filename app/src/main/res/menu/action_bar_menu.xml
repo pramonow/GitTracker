@@ -4,7 +4,7 @@
     <item android:title=""
           android:id="@+id/spinner_menu"
           app:showAsAction="ifRoom"
-          android:icon="@drawable/ic_more_horiz_black_24dp">
+          android:icon="@drawable/ic_more_vert_black_24dp">
 
         <menu>
             <item
