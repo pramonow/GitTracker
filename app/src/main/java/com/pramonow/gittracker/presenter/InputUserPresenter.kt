@@ -41,7 +41,7 @@ class InputUserPresenter:InputUserContract.Presenter{
                 else
                 {
                     //Might need to check further, 404 will result in user not found
-                    activity.showToast(Resources.getSystem().getString(R.string.not_found_message))
+                    activity.showToast(R.string.not_found_message)
                 }
 
             }

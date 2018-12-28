@@ -46,7 +46,7 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
         repoRecyclerView.loadOffset = 3
         repoRecyclerView.setLoadBeforeBottom(true)
         repoRecyclerView.setEndlessScrollCallback(this)
-        repoRecyclerView.recyclerView.adapter = repoAdapter
+        repoRecyclerView.adapter = repoAdapter
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setTitle(user.userName + "'s repository")
