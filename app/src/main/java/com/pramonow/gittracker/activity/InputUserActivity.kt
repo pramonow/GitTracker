@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
-import com.pramonow.gittracker.model.User
+import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.presenter.InputUserPresenter
 import android.view.Menu
 import android.view.MenuItem
@@ -63,10 +63,9 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
             loadingLayout.visibility = View.INVISIBLE
     }
 
-    override fun navigateToUserActivity(user: User) {
-
+    override fun navigateToUserActivity(userDetail: UserDetail) {
         var intent = Intent(this,UserProfileActivity::class.java)
-        intent.putExtra(USER_INTENT,user)
+        intent.putExtra(USER_INTENT,userDetail)
         startActivity(intent)
     }
 

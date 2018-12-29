@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.UserProfileContract
-import com.pramonow.gittracker.model.User
+import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.presenter.UserProfilePresenter
 import com.pramonow.gittracker.util.USER_INTENT
 import com.squareup.picasso.Picasso
@@ -32,7 +32,7 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        var user = intent.extras.getParcelable<User>(USER_INTENT)
+        var user = intent.extras.getParcelable<UserDetail>(USER_INTENT)
 
         avatarImage = findViewById(R.id.avatar_image)
         nameText = findViewById(R.id.name_text)
@@ -70,19 +70,19 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         }
     }
 
-    private fun initializeUserProfile(user:User)
+    private fun initializeUserProfile(userDetail:UserDetail)
     {
-        Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
-        nameText.setText(user.name)
-        userNameText.setText(user.userName)
-        repoCountTextView.setText("Public repos: " + user.publicRepoCount)
-        showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(user) }
-        setTitle(user.userName + "'s profile")
+        Picasso.get().load(userDetail.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
+        nameText.setText(userDetail.name)
+        userNameText.setText(userDetail.userName)
+        repoCountTextView.setText("Public repos: " + userDetail.publicRepoCount)
+        showRepoButton.setOnClickListener { v -> navigateToRepositoryScreen(userDetail) }
+        setTitle(userDetail.userName + "'s profile")
 
-        if(!user.biography.isNullOrEmpty())
-            biographyTextView.setText(user.biography)
-        if(!user.location.isNullOrEmpty())
-            locationTextView.setText(user.location)
+        if(!userDetail.biography.isNullOrEmpty())
+            biographyTextView.setText(userDetail.biography)
+        if(!userDetail.location.isNullOrEmpty())
+            locationTextView.setText(userDetail.location)
     }
 
 
@@ -94,9 +94,9 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun navigateToRepositoryScreen(user:User) {
+    override fun navigateToRepositoryScreen(userDetail:UserDetail) {
         var intent = Intent(this,RepoListActivity::class.java)
-        intent.putExtra(USER_INTENT,user)
+        intent.putExtra(USER_INTENT,userDetail)
         startActivity(intent)
     }
 

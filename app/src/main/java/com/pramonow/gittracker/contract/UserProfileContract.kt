@@ -1,12 +1,12 @@
 package com.pramonow.gittracker.contract
 
-import com.pramonow.gittracker.model.User
+import com.pramonow.gittracker.model.UserDetail
 
 interface UserProfileContract {
 
     interface Activity{
         fun showLoading(show:Boolean)
-        fun navigateToRepositoryScreen(user:User)
+        fun navigateToRepositoryScreen(userDetail:UserDetail)
     }
 
     interface Presenter{

@@ -1,6 +1,6 @@
 package com.pramonow.gittracker.contract
 
-import com.pramonow.gittracker.model.User
+import com.pramonow.gittracker.model.UserDetail
 
 interface InputUserContract {
 
@@ -8,7 +8,7 @@ interface InputUserContract {
         fun showLoading(show:Boolean)
         fun showToast(message:String)
         fun showToast(message:Int)
-        fun navigateToUserActivity(user:User)
+        fun navigateToUserActivity(userDetail:UserDetail)
     }
 
     interface Presenter{

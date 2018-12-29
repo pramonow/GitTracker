@@ -1,6 +1,6 @@
 package com.pramonow.gittracker.util
 
-val USER_INTENT = "user"
+val USER_INTENT = "userDetail"
 val SUCCESS_RESPONE_CODE = 200
 val REPO_URL_HREF = "<a href='https://github.com/pramonow/GitTracker'> pramonow/GitTracker </a>"
 val URL_INTENT = "url"
