@@ -3,8 +3,13 @@ package com.pramonow.gittracker.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.pramonow.endlessrecyclerview.EndlessRecyclerView
 import com.pramonow.endlessrecyclerview.EndlessScrollCallback
@@ -15,38 +20,40 @@ import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.presenter.UserListPresenter
 import com.pramonow.gittracker.util.AdapterOnClick
+import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
 
-class UserListActivity : AppCompatActivity(), EndlessScrollCallback, UserListContract.Activity, AdapterOnClick {
+class UserListActivity : AppCompatActivity(), UserListContract.Activity, AdapterOnClick {
 
     val userListPresenter = UserListPresenter(this)
 
-    lateinit var userRecyclerView: EndlessRecyclerView
+    lateinit var userRecyclerView: RecyclerView
     lateinit var userAdapter: UserAdapter
     lateinit var userName: String
-
-    var isLoadingData = false
-    var defaultLimitPage = 10
-    var page = 1
+    lateinit var loadingLayout:FrameLayout
+    lateinit var queryText:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_list)
 
-        userName = "praacaccst"
+        loadingLayout = findViewById(R.id.loading_layout)
+        queryText = findViewById(R.id.top_text)
+
+        userName = intent.getStringExtra(USERNAME_INTENT)
+
+        queryText.setText("Search results on $userName")
 
         userAdapter = UserAdapter(this)
 
         //Setting endless recycler view block
-        userRecyclerView = findViewById(R.id.endless_repo_list)
-        userRecyclerView.loadOffset = 3
-        userRecyclerView.setLoadBeforeBottom(true)
-        userRecyclerView.setEndlessScrollCallback(this)
+        userRecyclerView = findViewById(R.id.user_list)
+        userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = userAdapter
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        userListPresenter.getUserList(userName,defaultLimitPage, page)
+        userListPresenter.getUserList(userName,40,1)
     }
 
     // create an action bar button
@@ -77,13 +84,6 @@ class UserListActivity : AppCompatActivity(), EndlessScrollCallback, UserListCon
         userListPresenter.fetchUserDetail(userName);
     }
 
-    //Function to be implemented for endless scroll view callback
-    override fun loadMore() {
-        //block new data from loading until the new data finish being fetched
-        userRecyclerView.blockLoading()
-        userListPresenter.getUserList(userName,defaultLimitPage, page)
-    }
-
     /*
         Contract functions Implementation block
      */
@@ -94,26 +94,15 @@ class UserListActivity : AppCompatActivity(), EndlessScrollCallback, UserListCon
     }
 
     override fun showUserList(repoList: List<User>) {
-
-        //If repos obtained from web is less than 10 means it is the last page
-        //Setting last page will make endless view from loading new data
-        if(repoList.size < defaultLimitPage)
-            userRecyclerView.setLastPage()
-
         userAdapter.addUserList(repoList)
-
-        //enable loading again
-        userRecyclerView.releaseBlock()
-        page++
     }
 
-    override fun setLoading(boolean: Boolean) {
-        isLoadingData = boolean
 
-        if(boolean == true)
-            userRecyclerView.blockLoading()
+    override fun showLoading(boolean: Boolean) {
+        if(boolean == false)
+            loadingLayout.visibility = View.INVISIBLE
         else
-            userRecyclerView.releaseBlock()
+            loadingLayout.visibility = View.VISIBLE
     }
 
     override fun showToast(message: String) {

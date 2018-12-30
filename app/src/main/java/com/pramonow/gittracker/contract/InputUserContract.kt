@@ -9,6 +9,7 @@ interface InputUserContract {
         fun showToast(message:String)
         fun showToast(message:Int)
         fun navigateToUserActivity(userDetail:UserDetail)
+        fun navigateToUserListActivity(username: String)
     }
 
     interface Presenter{

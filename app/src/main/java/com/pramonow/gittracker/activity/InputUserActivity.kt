@@ -11,6 +11,7 @@ import com.pramonow.gittracker.presenter.InputUserPresenter
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
@@ -28,6 +29,8 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         inputText = findViewById(R.id.input_edit_text)
         confirmButton = findViewById(R.id.confirm_button)
         loadingLayout = findViewById(R.id.loading_layout)
+
+        inputText.highlightColor = resources.getColor(R.color.colorLightGray)
 
         confirmButton.setOnClickListener { v -> inputUserPresenter.fetchUser(inputText.text.toString()) }
 
@@ -66,6 +69,12 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
     override fun navigateToUserActivity(userDetail: UserDetail) {
         var intent = Intent(this,UserProfileActivity::class.java)
         intent.putExtra(USER_INTENT,userDetail)
+        startActivity(intent)
+    }
+
+    override fun navigateToUserListActivity(username: String) {
+        var intent = Intent(this,UserListActivity::class.java)
+        intent.putExtra(USERNAME_INTENT,username)
         startActivity(intent)
     }
 

@@ -21,13 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.UserProfileActivity"/>
-        <activity android:name=".activity.RepoListActivity" >
-
-        </activity>
-
+        <activity android:name=".activity.UserProfileActivity"></activity>
+        <activity android:name=".activity.RepoListActivity" ></activity>
         <activity android:name=".activity.RepoDetailActivity"></activity>
         <activity android:name=".activity.AboutActivity"></activity>
+        <activity android:name=".activity.UserListActivity"></activity>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ interface UserListContract {
 
     interface Activity{
         fun showUserList(repoList:List<User>)
-        fun setLoading(boolean: Boolean)
+        fun showLoading(boolean: Boolean)
         fun showToast(message:String)
         fun showToast(message:Int)
         fun navigateToUserDetail(userDetail: UserDetail)

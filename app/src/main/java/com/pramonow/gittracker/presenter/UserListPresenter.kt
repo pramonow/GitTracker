@@ -1,10 +1,12 @@
 package com.pramonow.gittracker.presenter
 
+import android.util.Log
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.UserListContract
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.network.NetworkBuilder
+import com.pramonow.gittracker.network.responsemodel.UserListResponse
 import com.pramonow.gittracker.util.SUCCESS_RESPONE_CODE
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,33 +26,44 @@ class UserListPresenter:UserListContract.Presenter{
     override fun getUserList(username: String, limit: Int, page: Int) {
         val call = NetworkBuilder.service.getUserList(username,limit,page)
 
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+        call.enqueue(object : Callback<UserListResponse> {
+            override fun onResponse(call: Call<UserListResponse>, response: Response<UserListResponse>) {
+
+
+                if(response.code() == 403)
+                {
+                    //give error message for too much hit
+                }
 
                 var result = response.body()
 
                 if (result != null) {
-                    activity.showUserList(result)
+                    if(result.totalItem == 0)
+                        activity.showToast(R.string.no_user_found)
+                    else
+                        activity.showUserList(result.userList)
                 }
+
+                activity.showLoading(false)
             }
 
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
                 activity.showToast(R.string.network_error)
-                activity.setLoading(false)
+                activity.showLoading(false)
             }
         })
     }
 
     override fun fetchUserDetail(username: String)
     {
-        //activity.showLoading(true)
+        activity.showLoading(true)
 
         val call = NetworkBuilder.service.getUser(username)
 
         //API calling block
         call.enqueue(object : Callback<UserDetail> {
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
-                //activity.showLoading(false)
+                activity.showLoading(false)
 
                 if(response.code() == SUCCESS_RESPONE_CODE) {
                     var result = response.body()
@@ -66,7 +79,7 @@ class UserListPresenter:UserListContract.Presenter{
             }
 
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {
-                //activity.showLoading(false)
+                activity.showLoading(false)
                 activity.showToast(R.string.network_error)
             }
         })

@@ -18,6 +18,8 @@ class InputUserPresenter:InputUserContract.Presenter{
         this.activity = activity
     }
 
+    //do fetch userlist here and if no user found then abort
+    @Deprecated("Not used anymore")
     override fun fetchUser(username: String)
     {
         activity.showLoading(true)
@@ -33,12 +35,12 @@ class InputUserPresenter:InputUserContract.Presenter{
                     var result = response.body()
 
                     if (result != null)
-                        activity.navigateToUserActivity(result)
+                        activity.navigateToUserListActivity(username)
                 }
                 else
                 {
                     //Might need to check further, 404 will result in userDetail not found
-                    activity.showToast(R.string.not_found_message)
+                    //activity.showToast(R.string.not_found_message)
                 }
             }
 

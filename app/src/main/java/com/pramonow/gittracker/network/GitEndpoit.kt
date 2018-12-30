@@ -4,6 +4,7 @@ import com.pramonow.gittracker.model.RepoDetail
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.model.UserDetail
+import com.pramonow.gittracker.network.responsemodel.UserListResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,7 +19,7 @@ interface GitEndpoit {
     @GET("repos/{username}/{reponame}")
     fun getRepo(@Path("username") username:String, @Path("reponame") reponame:String):Call<RepoDetail>
     @GET("search/users")
-    fun getUserList(@Path("q") username:String, @Path("per_page") limit: Int, @Query("page") page: Int):Call<List<User>>
+    fun getUserList(@Query("q") username:String, @Query("per_page") limit: Int, @Query("page") page: Int):Call<UserListResponse>
 
 
 }
