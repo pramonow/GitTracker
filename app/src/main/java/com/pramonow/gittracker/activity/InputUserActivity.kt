@@ -1,5 +1,6 @@
 package com.pramonow.gittracker.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,6 +16,10 @@ import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.util.USERLIST_INTENT
 import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
+
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
@@ -34,8 +39,14 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
         inputText.highlightColor = resources.getColor(R.color.colorLightGray)
 
-        confirmButton.setOnClickListener { v -> inputUserPresenter.fetchUserList(inputText.text.toString()) }
+        confirmButton.setOnClickListener { v -> hideFocus(v); inputUserPresenter.fetchUserList(inputText.text.toString()) }
 
+    }
+
+    fun hideFocus(view:View)
+    {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0)
     }
 
     // create an action bar button

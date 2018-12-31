@@ -39,6 +39,7 @@
                  android:id="@+id/loading_layout"
                  android:background="@color/colorGrayLoading"
                  android:visibility="invisible"
+                 android:clickable="true"
         >
 
         <ProgressBar android:layout_width="wrap_content"
