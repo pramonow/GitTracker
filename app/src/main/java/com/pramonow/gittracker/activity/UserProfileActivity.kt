@@ -13,6 +13,7 @@ import com.pramonow.gittracker.contract.UserProfileContract
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.presenter.UserProfilePresenter
 import com.pramonow.gittracker.util.USER_INTENT
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 
 class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
@@ -72,7 +73,7 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
 
     private fun initializeUserProfile(userDetail:UserDetail)
     {
-        Picasso.get().load(userDetail.avatarUrl).placeholder(R.color.loading_block_gray).into(avatarImage)
+        Picasso.get().load(userDetail.avatarUrl).placeholder(R.color.loading_block_gray).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(avatarImage)
         nameText.setText(userDetail.name)
         userNameText.setText(userDetail.userName)
         repoCountTextView.setText("Public repos: " + userDetail.publicRepoCount)

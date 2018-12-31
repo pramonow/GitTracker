@@ -20,40 +20,6 @@ class UserListPresenter:UserListContract.Presenter{
         this.activity = activity
     }
 
-    /*
-        API calling block
-     */
-    override fun getUserList(username: String, limit: Int, page: Int) {
-        val call = NetworkBuilder.service.getUserList(username,limit,page)
-
-        call.enqueue(object : Callback<UserListResponse> {
-            override fun onResponse(call: Call<UserListResponse>, response: Response<UserListResponse>) {
-
-
-                if(response.code() == 403)
-                {
-                    //give error message for too much hit
-                }
-
-                var result = response.body()
-
-                if (result != null) {
-                    if(result.totalItem == 0)
-                        activity.showToast(R.string.no_user_found)
-                    else
-                        activity.showUserList(result.userList)
-                }
-
-                activity.showLoading(false)
-            }
-
-            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                activity.showToast(R.string.network_error)
-                activity.showLoading(false)
-            }
-        })
-    }
-
     override fun fetchUserDetail(username: String)
     {
         activity.showLoading(true)

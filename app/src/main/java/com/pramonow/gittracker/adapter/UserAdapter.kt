@@ -10,6 +10,7 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.util.AdapterOnClick
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
@@ -55,7 +56,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserVH> {
 
         fun setData(user: User)
         {
-            Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).into(userImage)
+            Picasso.get().load(user.avatarUrl).placeholder(R.color.loading_block_gray).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(userImage)
             userName.setText(user.userName)
             itemView.setOnClickListener { v -> adapterOnClick.onClick(user.userName, "") }
         }

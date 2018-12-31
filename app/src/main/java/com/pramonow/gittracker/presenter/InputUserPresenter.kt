@@ -4,6 +4,7 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.network.NetworkBuilder
+import com.pramonow.gittracker.network.responsemodel.UserListResponse
 import com.pramonow.gittracker.util.SUCCESS_RESPONE_CODE
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +19,7 @@ class InputUserPresenter:InputUserContract.Presenter{
         this.activity = activity
     }
 
-    //do fetch userlist here and if no user found then abort
-    @Deprecated("Not used anymore")
-    override fun fetchUser(username: String)
-    {
+    override fun fetchUser(username: String) {
         activity.showLoading(true)
 
         val call = NetworkBuilder.service.getUser(username)
@@ -34,13 +32,14 @@ class InputUserPresenter:InputUserContract.Presenter{
                 if(response.code() == SUCCESS_RESPONE_CODE) {
                     var result = response.body()
 
-                    if (result != null)
-                        activity.navigateToUserListActivity(username)
+                    if (result != null) {
+                        activity.navigateToUserActivity(result)
+                    }
                 }
                 else
                 {
                     //Might need to check further, 404 will result in userDetail not found
-                    //activity.showToast(R.string.not_found_message)
+                    activity.showToast(R.string.not_found_message)
                 }
             }
 
@@ -50,5 +49,41 @@ class InputUserPresenter:InputUserContract.Presenter{
             }
         })
     }
+
+    override fun fetchUserList(username: String) {
+        activity.showLoading(true)
+        val call = NetworkBuilder.service.getUserList(username,40,1)
+
+        call.enqueue(object : Callback<UserListResponse> {
+            override fun onResponse(call: Call<UserListResponse>, response: Response<UserListResponse>) {
+
+
+                if(response.code() == 403)
+                {
+                    //give error message for too much hit
+                    activity.showLoading(false)
+                    return
+                }
+
+                var result = response.body()
+
+                if (result != null) {
+                    if(result.totalItem == 0)
+                        activity.showToast(R.string.no_user_found)
+                    else
+                        activity.navigateToUserListActivity(result.userList, username)
+                }
+
+                activity.showLoading(false)
+            }
+
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
+                activity.showToast(R.string.network_error)
+                activity.showLoading(false)
+            }
+        })
+    }
+
+
 
 }

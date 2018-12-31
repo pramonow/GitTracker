@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -20,6 +21,7 @@ import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.presenter.UserListPresenter
 import com.pramonow.gittracker.util.AdapterOnClick
+import com.pramonow.gittracker.util.USERLIST_INTENT
 import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
 
@@ -29,6 +31,7 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
 
     lateinit var userRecyclerView: RecyclerView
     lateinit var userAdapter: UserAdapter
+    lateinit var userList: List<User>
     lateinit var userName: String
     lateinit var loadingLayout:FrameLayout
     lateinit var queryText:TextView
@@ -40,6 +43,7 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
         loadingLayout = findViewById(R.id.loading_layout)
         queryText = findViewById(R.id.top_text)
 
+        userList = intent.getParcelableArrayListExtra(USERLIST_INTENT)
         userName = intent.getStringExtra(USERNAME_INTENT)
 
         queryText.setText("Search results on $userName")
@@ -50,10 +54,9 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
         userRecyclerView = findViewById(R.id.user_list)
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = userAdapter
+        userAdapter.addUserList(userList)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-        userListPresenter.getUserList(userName,40,1)
     }
 
     // create an action bar button
@@ -93,16 +96,13 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
         startActivity(intent)
     }
 
-    override fun showUserList(repoList: List<User>) {
-        userAdapter.addUserList(repoList)
-    }
-
-
     override fun showLoading(boolean: Boolean) {
-        if(boolean == false)
-            loadingLayout.visibility = View.INVISIBLE
-        else
+
+        Log.d("baniman", "showload")
+        if(boolean == true)
             loadingLayout.visibility = View.VISIBLE
+        else
+            loadingLayout.visibility = View.INVISIBLE
     }
 
     override fun showToast(message: String) {
