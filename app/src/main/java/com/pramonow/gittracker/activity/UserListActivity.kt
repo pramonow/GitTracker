@@ -59,6 +59,11 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onBackPressed() {
+        userListPresenter.cancelRetrofitCall()
+        super.onBackPressed()
+    }
+
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)

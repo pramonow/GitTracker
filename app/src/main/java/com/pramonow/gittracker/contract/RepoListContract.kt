@@ -13,5 +13,6 @@ interface RepoListContract {
 
     interface Presenter{
         fun getRepoList(username:String, limit:Int, page:Int)
+        fun cancelRetrofitCall()
     }
 }

@@ -6,6 +6,7 @@ import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.RepoListContract
 import com.pramonow.gittracker.model.RepoModel
 import com.pramonow.gittracker.network.NetworkBuilder
+import com.pramonow.gittracker.util.CANCELED_EXCEPTION
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,6 +14,7 @@ import retrofit2.Response
 class RepoListPresenter:RepoListContract.Presenter{
 
     private var activity:RepoListContract.Activity
+    private lateinit var call:Call<List<RepoModel>>
 
     constructor(activity:RepoListContract.Activity){
         this.activity = activity
@@ -22,12 +24,11 @@ class RepoListPresenter:RepoListContract.Presenter{
         API calling block
      */
     override fun getRepoList(username: String, limit: Int, page: Int) {
-        val call = NetworkBuilder.service.getRepoList(username,limit,page)
+        call = NetworkBuilder.service.getRepoList(username,limit,page)
 
         call.enqueue(object : Callback<List<RepoModel>> {
             override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {
 
-                Log.d("baniman","load repo " + response )
                 var result = response.body()
 
                 if (result != null) {
@@ -36,10 +37,17 @@ class RepoListPresenter:RepoListContract.Presenter{
             }
 
             override fun onFailure(call: Call<List<RepoModel>>, t: Throwable) {
-                activity.showToast(R.string.network_error)
-                activity.setLoading(false)
+                if(!t.message.equals(CANCELED_EXCEPTION)) {
+                    activity.setLoading(false)
+                    activity.showToast(R.string.network_error)
+                }
             }
         })
+    }
+
+    override fun cancelRetrofitCall() {
+        if(::call.isInitialized)
+            call.cancel()
     }
 
 }

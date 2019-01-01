@@ -14,7 +14,7 @@ interface InputUserContract {
     }
 
     interface Presenter{
-        fun fetchUser(username:String)
         fun fetchUserList(username: String)
+        fun cancelRetrofitCall()
     }
 }

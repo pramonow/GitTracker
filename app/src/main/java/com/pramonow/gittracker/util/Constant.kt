@@ -7,3 +7,4 @@ val REPO_URL_HREF = "<a href='https://github.com/pramonow/GitTracker'> pramonow/
 val URL_INTENT = "url"
 val REPO_NAME_INTENT = "reponame"
 val USERLIST_INTENT = "userlist"
+val CANCELED_EXCEPTION = "Canceled"

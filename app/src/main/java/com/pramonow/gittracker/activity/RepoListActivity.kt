@@ -52,6 +52,11 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
         repoListPresenter.getRepoList(userDetail.userName,defaultLimitPage, page)
     }
 
+    override fun onBackPressed() {
+        repoListPresenter.cancelRetrofitCall()
+        super.onBackPressed()
+    }
+
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val menuItem = menuInflater.inflate(R.menu.action_bar_menu, menu)

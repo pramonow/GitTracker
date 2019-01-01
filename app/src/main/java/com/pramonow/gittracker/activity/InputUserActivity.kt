@@ -18,6 +18,7 @@ import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.support.v4.content.ContextCompat.getSystemService
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 
 
@@ -41,6 +42,12 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
         confirmButton.setOnClickListener { v -> hideFocus(v); inputUserPresenter.fetchUserList(inputText.text.toString()) }
 
+    }
+
+    override fun onBackPressed() {
+        Log.d("baniman", "back press")
+        inputUserPresenter.cancelRetrofitCall()
+        super.onBackPressed()
     }
 
     fun hideFocus(view:View)
