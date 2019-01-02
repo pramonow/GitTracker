@@ -45,7 +45,6 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         initializeUserProfile(user)
-
     }
 
     // create an action bar button
@@ -57,7 +56,6 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
 
     // handle button activities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.about -> {
                 startActivity(Intent(this,AboutActivity::class.java))
@@ -71,8 +69,9 @@ class UserProfileActivity : AppCompatActivity(), UserProfileContract.Activity {
         }
     }
 
-    private fun initializeUserProfile(userDetail:UserDetail)
-    {
+
+    // method for view initialization block
+    private fun initializeUserProfile(userDetail:UserDetail) {
         Picasso.get().load(userDetail.avatarUrl).placeholder(R.color.loading_block_gray).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(avatarImage)
         nameText.setText(userDetail.name)
         userNameText.setText(userDetail.userName)

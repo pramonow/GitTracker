@@ -45,15 +45,8 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
     }
 
     override fun onBackPressed() {
-        Log.d("baniman", "back press")
         inputUserPresenter.cancelRetrofitCall()
         super.onBackPressed()
-    }
-
-    fun hideFocus(view:View)
-    {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0)
     }
 
     // create an action bar button
@@ -65,7 +58,6 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
     // handle button activities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.about -> {
                 startActivity(Intent(this,AboutActivity::class.java))
@@ -74,6 +66,13 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
+    // handle keyboard and focus hiding when user is querying
+    private fun hideFocus(view:View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0)
+    }
+
 
     /*
         Contract Functions block
@@ -106,7 +105,5 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
     override fun showToast(message: Int) {
         Toast.makeText(this,getString(message),Toast.LENGTH_SHORT).show()
     }
-
-
 
 }

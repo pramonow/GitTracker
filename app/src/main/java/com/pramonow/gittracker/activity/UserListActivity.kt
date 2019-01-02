@@ -50,7 +50,8 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
 
         userAdapter = UserAdapter(this)
 
-        //Setting endless recycler view block
+        //Setting recycler view block
+        //Not using endless recycler view since max hit is 10/minutes
         userRecyclerView = findViewById(R.id.user_list)
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = userAdapter
@@ -102,8 +103,6 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
     }
 
     override fun showLoading(boolean: Boolean) {
-
-        Log.d("baniman", "showload")
         if(boolean == true)
             loadingLayout.visibility = View.VISIBLE
         else

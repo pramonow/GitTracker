@@ -2,5 +2,7 @@
     <string name="app_name">GitTracker</string>
     <string name="not_found_message">User Not Found</string>
     <string name="network_error">Network Error</string>
-    <string name="no_user_found">No user found matching that name</string>
+    <string name="no_user_found">No result found matching that name</string>
+    <string name="too_much_attempt">You have made too much attempt, please try again later</string>
+    <string name="about">About</string>
 </resources>

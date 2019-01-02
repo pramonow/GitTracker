@@ -13,7 +13,6 @@ import com.pramonow.gittracker.util.REPO_URL_HREF
 class AboutActivity: AppCompatActivity(){
 
     lateinit var urlText:TextView
-    val actionBarTitle = "About"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +20,7 @@ class AboutActivity: AppCompatActivity(){
         setContentView(R.layout.activity_about)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        setTitle(actionBarTitle)
+        setTitle(getString(R.string.about))
 
         //Set Clickable link block
         urlText = findViewById(R.id.project_link)
@@ -33,7 +32,6 @@ class AboutActivity: AppCompatActivity(){
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()

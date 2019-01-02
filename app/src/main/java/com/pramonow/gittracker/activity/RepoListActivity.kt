@@ -98,7 +98,6 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
     /*
         Contract functions Implementation block
      */
-
     override fun showRepoList(repoList: List<RepoModel>) {
 
         //If repos obtained from web is less than 10 means it is the last page
