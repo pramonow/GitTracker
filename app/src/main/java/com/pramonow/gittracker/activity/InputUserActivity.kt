@@ -19,7 +19,13 @@ import com.pramonow.gittracker.util.USER_INTENT
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.support.v4.content.ContextCompat.getSystemService
 import android.util.Log
+import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.widget.EditText
+
+
 
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
@@ -39,9 +45,15 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         loadingLayout = findViewById(R.id.loading_layout)
 
         inputText.highlightColor = resources.getColor(R.color.colorLightGray)
-
         confirmButton.setOnClickListener { v -> hideFocus(v); inputUserPresenter.fetchUserList(inputText.text.toString()) }
 
+        inputText.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                confirmButton.performClick()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     override fun onBackPressed() {
@@ -72,7 +84,6 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0)
     }
-
 
     /*
         Contract Functions block

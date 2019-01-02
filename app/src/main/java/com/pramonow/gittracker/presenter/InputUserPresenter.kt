@@ -27,11 +27,10 @@ class InputUserPresenter:InputUserContract.Presenter{
 
         call.enqueue(object : Callback<UserListResponse> {
             override fun onResponse(call: Call<UserListResponse>, response: Response<UserListResponse>) {
-
-
                 if(response.code() == 403)
                 {
                     //give error message for too much hit
+                    activity.showToast(R.string.too_much_attempt)
                     activity.showLoading(false)
                     return
                 }
