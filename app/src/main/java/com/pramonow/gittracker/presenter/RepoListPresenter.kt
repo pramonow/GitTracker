@@ -1,7 +1,5 @@
 package com.pramonow.gittracker.presenter
 
-import android.content.res.Resources
-import android.util.Log
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.RepoListContract
 import com.pramonow.gittracker.model.RepoModel
@@ -11,14 +9,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RepoListPresenter:RepoListContract.Presenter{
+class RepoListPresenter(private var activity: RepoListContract.Activity) :RepoListContract.Presenter{
 
-    private var activity:RepoListContract.Activity
     private lateinit var call:Call<List<RepoModel>>
-
-    constructor(activity:RepoListContract.Activity){
-        this.activity = activity
-    }
 
     override fun getRepoList(username: String, limit: Int, page: Int) {
         call = NetworkBuilder.service.getRepoList(username,limit,page)
@@ -27,7 +20,7 @@ class RepoListPresenter:RepoListContract.Presenter{
         call.enqueue(object : Callback<List<RepoModel>> {
             override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {
 
-                var result = response.body()
+                val result = response.body()
 
                 if (result != null) {
                     activity.showRepoList(result)

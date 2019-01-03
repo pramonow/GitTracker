@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.pramonow.endlessrecyclerview.EndlessRecyclerView
-import com.pramonow.endlessrecyclerview.EndlessScrollCallback
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.adapter.UserAdapter
 import com.pramonow.gittracker.contract.UserListContract
@@ -46,7 +43,7 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
         userList = intent.getParcelableArrayListExtra(USERLIST_INTENT)
         userName = intent.getStringExtra(USERNAME_INTENT)
 
-        queryText.setText("Search results on $userName")
+        queryText.text = "Search results on $userName"
 
         userAdapter = UserAdapter(this)
 
@@ -90,14 +87,14 @@ class UserListActivity : AppCompatActivity(), UserListContract.Activity, Adapter
 
     //Function to be implemented for adapter click interface
     override fun onClick(userName: String, extraParam:String) {
-        userListPresenter.fetchUserDetail(userName);
+        userListPresenter.fetchUserDetail(userName)
     }
 
     /*
         Contract functions Implementation block
      */
     override fun navigateToUserDetail(userDetail: UserDetail) {
-        var intent = Intent(this,UserProfileActivity::class.java)
+        val intent = Intent(this,UserProfileActivity::class.java)
         intent.putExtra(USER_INTENT,userDetail)
         startActivity(intent)
     }

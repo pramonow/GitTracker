@@ -1,26 +1,18 @@
 package com.pramonow.gittracker.presenter
 
-import android.util.Log
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.UserListContract
-import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.network.NetworkBuilder
-import com.pramonow.gittracker.network.responsemodel.UserListResponse
 import com.pramonow.gittracker.util.CANCELED_EXCEPTION
 import com.pramonow.gittracker.util.SUCCESS_RESPONE_CODE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserListPresenter:UserListContract.Presenter{
+class UserListPresenter(private var activity: UserListContract.Activity) :UserListContract.Presenter{
 
-    private var activity:UserListContract.Activity
     private lateinit var call:Call<UserDetail>
-
-    constructor(activity:UserListContract.Activity){
-        this.activity = activity
-    }
 
     override fun fetchUserDetail(username: String) {
         activity.showLoading(true)
@@ -33,7 +25,7 @@ class UserListPresenter:UserListContract.Presenter{
                 activity.showLoading(false)
 
                 if(response.code() == SUCCESS_RESPONE_CODE) {
-                    var result = response.body()
+                    val result = response.body()
 
                     if (result != null)
                         activity.navigateToUserDetail(result)

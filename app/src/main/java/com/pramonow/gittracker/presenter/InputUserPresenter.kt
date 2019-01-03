@@ -2,24 +2,16 @@ package com.pramonow.gittracker.presenter
 
 import com.pramonow.gittracker.R
 import com.pramonow.gittracker.contract.InputUserContract
-import com.pramonow.gittracker.model.UserDetail
 import com.pramonow.gittracker.network.NetworkBuilder
 import com.pramonow.gittracker.network.responsemodel.UserListResponse
 import com.pramonow.gittracker.util.CANCELED_EXCEPTION
-import com.pramonow.gittracker.util.SUCCESS_RESPONE_CODE
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class InputUserPresenter:InputUserContract.Presenter{
+class InputUserPresenter(private var activity: InputUserContract.Activity) :InputUserContract.Presenter{
 
-    private var activity:InputUserContract.Activity
     private lateinit var call:Call<UserListResponse>
-
-    constructor(activity:InputUserContract.Activity)
-    {
-        this.activity = activity
-    }
 
     override fun fetchUserList(username: String) {
         activity.showLoading(true)
@@ -37,7 +29,7 @@ class InputUserPresenter:InputUserContract.Presenter{
                     return
                 }
 
-                var result = response.body()
+                val result = response.body()
 
                 if (result != null) {
                     if(result.totalItem == 0)

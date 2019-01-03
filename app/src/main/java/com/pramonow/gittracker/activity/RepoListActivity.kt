@@ -82,7 +82,7 @@ class RepoListActivity : AppCompatActivity(), EndlessScrollCallback, RepoListCon
 
     //Function to be implemented for adapter click interface
     override fun onClick(url: String, repoName:String) {
-        var intent = Intent(this,RepoDetailActivity::class.java)
+        val intent = Intent(this,RepoDetailActivity::class.java)
         intent.putExtra(URL_INTENT,url)
         intent.putExtra(REPO_NAME_INTENT, repoName)
         startActivity(intent)

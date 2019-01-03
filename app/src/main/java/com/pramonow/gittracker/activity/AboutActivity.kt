@@ -9,7 +9,6 @@ import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import com.pramonow.gittracker.util.REPO_URL_HREF
 
-
 class AboutActivity: AppCompatActivity(){
 
     lateinit var urlText:TextView

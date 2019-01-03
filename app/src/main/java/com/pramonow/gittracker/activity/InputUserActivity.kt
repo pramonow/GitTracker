@@ -16,17 +16,10 @@ import com.pramonow.gittracker.model.User
 import com.pramonow.gittracker.util.USERLIST_INTENT
 import com.pramonow.gittracker.util.USERNAME_INTENT
 import com.pramonow.gittracker.util.USER_INTENT
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.util.Log
-import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.EditText
-
-
-
 
 class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
 
@@ -97,13 +90,13 @@ class InputUserActivity : AppCompatActivity(), InputUserContract.Activity {
     }
 
     override fun navigateToUserActivity(userDetail: UserDetail) {
-        var intent = Intent(this,UserProfileActivity::class.java)
+        val intent = Intent(this,UserProfileActivity::class.java)
         intent.putExtra(USER_INTENT,userDetail)
         startActivity(intent)
     }
 
     override fun navigateToUserListActivity(userList: List<User>, username:String) {
-        var intent = Intent(this,UserListActivity::class.java)
+        val intent = Intent(this,UserListActivity::class.java)
         intent.putExtra(USERLIST_INTENT,userList as ArrayList<User>)
         intent.putExtra(USERNAME_INTENT,username)
         startActivity(intent)

@@ -1,5 +1,6 @@
 package com.pramonow.gittracker.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebView
@@ -21,6 +22,7 @@ class RepoDetailActivity:AppCompatActivity(){
     lateinit var detailView:WebView
     lateinit var loadingLayout:FrameLayout
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,7 +59,7 @@ class RepoDetailActivity:AppCompatActivity(){
         detailView.loadUrl(url)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setTitle(repoName)
+        title = repoName
     }
 
     // create an action bar button
@@ -85,7 +87,7 @@ class RepoDetailActivity:AppCompatActivity(){
 
     //Function overridden in order to enable back inside web view
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (event.getAction() === KeyEvent.ACTION_DOWN) {
+        if (event.action === KeyEvent.ACTION_DOWN) {
             when (keyCode) {
                 KeyEvent.KEYCODE_BACK -> {
                     if (detailView.canGoBack()) {
