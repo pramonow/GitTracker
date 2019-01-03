@@ -20,12 +20,10 @@ class RepoListPresenter:RepoListContract.Presenter{
         this.activity = activity
     }
 
-    /*
-        API calling block
-     */
     override fun getRepoList(username: String, limit: Int, page: Int) {
         call = NetworkBuilder.service.getRepoList(username,limit,page)
 
+        //API Calling block
         call.enqueue(object : Callback<List<RepoModel>> {
             override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {
 

@@ -22,8 +22,7 @@ class UserListPresenter:UserListContract.Presenter{
         this.activity = activity
     }
 
-    override fun fetchUserDetail(username: String)
-    {
+    override fun fetchUserDetail(username: String) {
         activity.showLoading(true)
 
         call = NetworkBuilder.service.getUser(username)
@@ -39,9 +38,8 @@ class UserListPresenter:UserListContract.Presenter{
                     if (result != null)
                         activity.navigateToUserDetail(result)
                 }
-                else
-                {
-                    //Might need to check further, 404 will result in userDetail not found
+                else {
+                    //code 404 for user not found
                     activity.showToast(R.string.not_found_message)
                 }
             }
