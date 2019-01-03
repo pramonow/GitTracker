@@ -16,7 +16,8 @@ class InputUserPresenter:InputUserContract.Presenter{
     private var activity:InputUserContract.Activity
     private lateinit var call:Call<UserListResponse>
 
-    constructor(activity:InputUserContract.Activity) {
+    constructor(activity:InputUserContract.Activity)
+    {
         this.activity = activity
     }
 
@@ -31,12 +32,13 @@ class InputUserPresenter:InputUserContract.Presenter{
 
                 if(response.code() == 403) {
                     //give error message for too much hit
-                    activity.showLoading(false)
                     activity.showToast(R.string.too_much_attempt)
+                    activity.showLoading(false)
                     return
                 }
 
                 var result = response.body()
+
                 if (result != null) {
                     if(result.totalItem == 0)
                         activity.showToast(R.string.no_user_found)
