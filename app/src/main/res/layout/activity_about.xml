@@ -25,7 +25,7 @@
                   android:textAlignment="center"
                   android:padding="18dp"
                   android:textStyle="bold"
-                  android:text="This application is created with REST V3 API provided by Github"
+                  android:text="This application is created with REST V3 API provided by Github. Also, this application is utilising Retrofit2 and Picasso library."
         />
 
         <TextView android:layout_width="match_parent"
